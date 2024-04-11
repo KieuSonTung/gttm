@@ -3,7 +3,8 @@
 <summary>Install</summary>
 
 ```bash
-source <PATH_TO_VIRTUAL_ENV>
+export CV_PATH=/home/minhnh/python_venv/cv/bin/activate
+source $CV_PATH
 cd object-detection/ultralytics
 pip install .
 ```
