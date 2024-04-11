@@ -1,5 +1,10 @@
 # GTTM
-
+<summary>Install</summary>
+```bash
+source [PATH_TO_VIRTUAL_ENV]
+cd object-detection/ultralytics
+pip install .
+```
 
 
 ## Getting started
