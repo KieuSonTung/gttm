@@ -11,6 +11,23 @@ pip install .
 </details>
 
 
+```
+|
+├── README.md          <- The top-level README for developers using this project.
+│
+├── docs               <- Documents (expect Sphinx template)
+│
+│── test               <- Test case
+|
+|-- bash               <- Bash scripts
+|
+|-- utils              <- Utilities scripts
+|
+├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+│                         generated with `pip freeze > requirements.txt`
+├── src                <- Source code for use in this project.
+
+```
 
 
 ## Getting started
