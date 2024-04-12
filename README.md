@@ -3,10 +3,8 @@
 <summary>Install</summary>
 
 ```bash
-export CV_PATH=/home/minhnh/python_venv/cv/bin/activate
-source $CV_PATH
 cd object-detection/ultralytics
-pip install .
+sudo /home/minhnh/python_venv/cv/bin/python3 -m pip install .
 ```
 </details>
 
@@ -29,7 +27,6 @@ pip install .
 |-- src                <- Source code for use in this project.
 
 ```
-
 
 ## Getting started
 
