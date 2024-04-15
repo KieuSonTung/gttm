@@ -1,1 +1,1 @@
-python3 utils/data/download_youtube.py --dst /home/minhnh/project_drive/CV/GTTMData/external/youtube --link https://youtu.be/pBp95ZV-4Ho?si=bI505kPc5lfcj_77
+python3 utils/data/download_youtube.py --dst $GTTMData_PATH/external/youtube/videos --link https://youtu.be/6_m7bkfRKcE?si=utM7n9Z7XNXUeWqf
