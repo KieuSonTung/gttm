@@ -3,6 +3,7 @@
 <summary>Install</summary>
 
 ```bash
+echo "export GTTMData_PATH=\"/home/minhnh/project_drive/CV/GTTMData\"" >> ~/.profile
 cd object-detection/ultralytics
 sudo /home/minhnh/python_venv/cv/bin/python3 -m pip install .
 ```

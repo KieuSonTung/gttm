@@ -1,0 +1,1 @@
+ffmpeg -ss 00:05:00 -to 00:15:00 -i "$GTTMData_PATH/external/youtube/videos/Rush Hour Traffic In Hanoi - 🇻🇳 Vietnam  [4K HDR].mp4" -async 1 -c copy $GTTMData_PATH/external/youtube/videos/troitoi_cutted.mp4
