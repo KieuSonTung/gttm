@@ -2,6 +2,7 @@ from ultralytics import YOLO
 from wandb.integration.ultralytics import add_wandb_callback
 import wandb
 import os
+from utils.main_utils import yaml_to_dict
 
 
 # Step 1: Initialize a Weights & Biases run
