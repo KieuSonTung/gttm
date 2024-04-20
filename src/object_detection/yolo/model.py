@@ -1,4 +1,4 @@
-from utils.main_utils import yaml_to_dict
+from src.object_detection.yolo.utils.main_utils import yaml_to_dict
 from ultralytics import YOLO
 import wandb
 from wandb.integration.ultralytics import add_wandb_callback
