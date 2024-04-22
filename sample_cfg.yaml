@@ -2,7 +2,7 @@
 # Default training settings and hyperparameters for medium-augmentation COCO training
 
 task: detect # (str) YOLO task, i.e. detect, segment, classify, pose
-mode: train # (str) YOLO mode, i.e. train, val, predict, export, track, benchmark
+# mode: train # (str) YOLO mode, i.e. train, val, predict, export, track, benchmark
 
 # Train settings -------------------------------------------------------------------------------------------------------
 model: "yolov8n.pt" # (str, optional) path to model file, i.e. yolov8n.pt, yolov8n.yaml
@@ -15,7 +15,7 @@ imgsz: 640 # (int | list) input images size as int for train and val modes, or l
 save: True # (bool) save train checkpoints and predict results
 save_period: -1 # (int) Save checkpoint every x epochs (disabled if < 1)
 cache: False # (bool) True/ram, disk or False. Use cache for data loading
-device:  0 # (int | str | list, optional) device to run on, i.e. cuda device=0 or device=0,1,2,3 or device=cpu
+device: 4 # (int | str | list, optional) device to run on, i.e. cuda device=0 or device=0,1,2,3 or device=cpu
 workers: 8 # (int) number of worker threads for data loading (per RANK if DDP)
 project: # (str, optional) project name
 name: # (str, optional) experiment name, results saved to 'project/name' directory
@@ -54,7 +54,7 @@ dnn: False # (bool) use OpenCV DNN for ONNX inference
 plots: True # (bool) save plots and images during train/val
 
 # Predict settings -----------------------------------------------------------------------------------------------------
-source: # (str, optional) source directory for images or videos
+source: "/raid/tungks/shared_drive_cv/GTTMData/external/youtube/videos/nga-tu-so_cutted.mp4" # (str, optional) source directory for images or videos
 vid_stride: 1 # (int) video frame-rate stride
 stream_buffer: False # (bool) buffer all streaming frames (True) or return the most recent frame (False)
 visualize: False # (bool) visualize model features
