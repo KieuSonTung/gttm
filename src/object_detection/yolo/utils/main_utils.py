@@ -2,6 +2,8 @@ import yaml
 import sys
 from src.object_detection.yolo.exception import AppException
 from src.object_detection.yolo.logger import logging
+from pathlib import Path
+import cv2
 
 
 def read_yaml_file(file_path: str) -> dict:
@@ -23,17 +25,23 @@ def read_yaml_file(file_path: str) -> dict:
         raise AppException(e, sys) from e
 
 
-def merge_dicts(dict1, dict2):
-    """
-    Merge two dictionaries, prioritizing values from dict2 in case of key conflicts.
+def load_video_to_list(path: Path) -> list:
+    video_capture = cv2.VideoCapture(path)
+    frame_ls = []
 
-    Args:
-    - dict1 (dict): The first dictionary.
-    - dict2 (dict): The second dictionary.
+    if not video_capture.isOpened():
+        print("Error: Unable to open video file")
+        return 
+    
+    while True:
+        ret, frame = video_capture.read()
+            
+        # Break the loop if there are no more frames
+        if not ret:
+            break
 
-    Returns:
-    - merged_dict (dict): The merged dictionary.
-    """
-    merged_dict = dict1.copy()
-    merged_dict.update(dict2)
-    return merged_dict
+        frame_ls.append(frame)
+    
+    video_capture.release()
+
+    return frame_ls
