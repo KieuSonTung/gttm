@@ -46,15 +46,15 @@ def run(video_path: str):
         
         if outputs is not None:
             # Lấy ra tọa độ x và y từ tensor
-            x = output[:, 0]
-            y = output[:, 1]
+            x = output[:, 1]
+            y = output[:, 2]
 
             # Tính toán w và h
-            w = output[:, 2] - x
-            h = output[:, 3] - y
+            w = output[:, 3] - x
+            h = output[:, 4] - y
 
             # Tạo tensor mới chứa x, y, w, h
-            output = torch.stack((x, y, w, h, output[:, 4]), dim=1)
+            output = torch.stack((x, y, w, h, output[:, 5]), dim=1)
             
             online_targets = tracker.update(output, [img_info['height'], img_info['width']], test_size)
             online_tlwhs = []
