@@ -1,65 +1,62 @@
 from bytetrack.byte_tracker import BYTETracker
 import numpy as np
 
-class MockDetector(object):
-    def __init__(self):
-        pass
-
-    def inference(self, image):
-        """
-        Tạo các mock sample (object giả được phát hiện trong frame)
-        """
-        outputs = np.random.rand(1, 10, 5) * 416 # 1 just for batch size as 1
-        
-        img_info = {
-            'height': 416,
-            'width': 416
-        }
-        return [
-            outputs, img_info
-        ]
-
-
-def run():
-    
-    """mock up run
-    - Width, height của mock video là 416x416 với 3 kênh màu RGB
+def run(video_path: str):
+    """
+    - Width, height của mock video là w*h với 3 kênh màu RGB
     - Detection row có thể nhận nhiều hơn 5 trường
-    + Dạng đơn giản nhất gồm tọa đồ và confidence: (x1, y1, x2, y2, obj_conf) 
+    + Dạng đơn giản nhất gồm tọa đồ và confidence: (x1, y1, w, h, obj_conf) 
     + Hoặc có thể thêm class confidence, class prediction với những model có hỗ trợ như yoloX: (x1, y1, x2, y2, obj_conf, class_conf, class_pred) 
     Returns:
         
     """
-    # Hyper Params to tune:
-    # Có thể tạo config file 
-    aspect_ratio_thresh = 0.6
-    min_box_area = 10
-    track_thresh = 0.5
-    track_buffer = 30
-    match_thresh = 0.8
-    fuse_score = False
-    frame_rate = 30
-    test_size = [416, 416]
+    # Load Hyper Params to tune:
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    
+    # Extract hyperparameters from config
+    #giá trị sau key là default nếu file config không có key đó
+    aspect_ratio_thresh = config.get('aspect_ratio_thresh', 0.6)
+    min_box_area = config.get('min_box_area', 10)
+    track_thresh = config.get('track_thresh', 0.5)
+    track_buffer = config.get('track_buffer', 30)
+    match_thresh = config.get('match_thresh', 0.8)
+    fuse_score = config.get('fuse_score', False)
+    frame_rate = config.get('frame_rate', 30)
+    test_size = config.get('test_size', [640,640])
 
-    detector = MockDetector()
     tracker = BYTETracker(
         track_thresh=track_thresh,
         track_buffer=track_buffer,
         match_thresh=match_thresh,
         fuse_score=fuse_score,
         frame_rate=frame_rate)
-    results = []
-    mock_video = [
-        np.random.rand(416, 416, 3),
-        np.random.rand(416, 416, 3),
-        np.random.rand(416, 416, 3),
-        np.random.rand(416, 416, 3)
-    ]
 
-    for frame_id, image in enumerate(mock_video, 1):
-        outputs, img_info = detector.inference(image)
-        if outputs[0] is not None:
-            online_targets = tracker.update(outputs[0], [img_info['height'], img_info['width']], test_size)
+    #------------code của anh Tùng đây. Em chưa import gì đâu. Anh thiếu của em cái img_info nhá -----------------------------
+    #start
+    od_model = ObjectDetection(model_name='yolo', cfg_path='runs/detect/train/weights/best.pt')
+    frames = load_video_to_list(video_path)
+    #end
+
+    results = []
+
+
+    for frame_count, frame in enumerate(frames, 1):
+            output = od_model.infer(frame, frame_count)
+        
+        if outputs is not None:
+            # Lấy ra tọa độ x và y từ tensor
+            x = output[:, 0]
+            y = output[:, 1]
+
+            # Tính toán w và h
+            w = output[:, 2] - x
+            h = output[:, 3] - y
+
+            # Tạo tensor mới chứa x, y, w, h
+            output = torch.stack((x, y, w, h, output[:, 4]), dim=1)
+            
+            online_targets = tracker.update(output, [img_info['height'], img_info['width']], test_size)
             online_tlwhs = []
             online_ids = []
             online_scores = []
@@ -73,11 +70,6 @@ def run():
                     online_scores.append(t.score)
                     # save results
                     results.append(
-                        f"{frame_id},{tid},{tlwh[0]:.2f},{tlwh[1]:.2f},{tlwh[2]:.2f},{tlwh[3]:.2f},{t.score:.2f},-1,-1,-1\n"
+                        [{frame_count},{tid},{tlwh[0]:.2f},{tlwh[1]:.2f},{tlwh[2]:.2f},{tlwh[3]:.2f},{t.score:.2f},-1,-1,-1]
                     )
-    print("Mock up test results are:")
-    print(results)
     return results
-
-
-run()
