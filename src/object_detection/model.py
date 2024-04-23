@@ -20,8 +20,8 @@ class ObjectDetection():
     def train(self):
         results = self.model.train()
     
-    def infer(self, model_path: str):
-        results = self.model.infer(model_path)
+    def infer(self, frame, frame_count):
+        results = self.model.infer(frame, frame_count)
 
         return results
         
