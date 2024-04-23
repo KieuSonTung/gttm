@@ -45,3 +45,21 @@ def load_video_to_list(path: Path) -> list:
     video_capture.release()
 
     return frame_ls
+
+def get_img_info(path: Path) -> dict:
+    # Open the video file
+    video_capture = cv2.VideoCapture(path)
+    
+    # Check if the video file is opened successfully
+    if not video_capture.isOpened():
+        print("Error: Unable to open video file")
+        return
+    
+    # Get video properties
+    width = int(video_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(video_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+    video_capture.release()
+
+    return {'width': width, 'height': height}
+
