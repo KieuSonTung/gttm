@@ -3,15 +3,31 @@
 <summary>Install</summary>
 
 ```bash
-export CV_PATH=/home/minhnh/python_venv/cv/bin/activate
-source $CV_PATH
+echo "export GTTMData_PATH=\"/home/minhnh/project_drive/CV/GTTMData\"" >> ~/.profile
 cd object-detection/ultralytics
-pip install .
+sudo /home/minhnh/python_venv/cv/bin/python3 -m pip install .
 ```
 </details>
 
+## Structure
 
+```
+|
+|-- README.md          <- The top-level README for developers using this project.
+|
+|-- docs               <- Documents (expect Sphinx template)
+|
+|-- test               <- Test case
+|
+|-- bash               <- Bash scripts
+|
+|-- utils              <- Utilities scripts
+|
+|-- requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+|                         generated with `pip freeze > requirements.txt`
+|-- src                <- Source code for use in this project.
 
+```
 
 ## Getting started
 

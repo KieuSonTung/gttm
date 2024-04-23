@@ -1,0 +1,1 @@
+ffmpeg -i $GTTMData_PATH/external/youtube/videos/troi-toi_cutted.mp4 $GTTMData_PATH/external/youtube/images/troi-toi/troi-toi_%05d.jpg
