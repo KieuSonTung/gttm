@@ -58,8 +58,9 @@ def get_img_info(path: Path) -> dict:
     # Get video properties
     width = int(video_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(video_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fps = int(video_capture.get(cv2.CAP_PROP_FPS))
 
     video_capture.release()
 
-    return {'width': width, 'height': height}
+    return {'width': width, 'height': height, 'fps': fps}
 

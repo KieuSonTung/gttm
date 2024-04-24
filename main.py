@@ -25,8 +25,8 @@ def run(video_path: str):
     track_buffer = config.get('track_buffer', 30)
     match_thresh = config.get('match_thresh', 0.8)
     fuse_score = config.get('fuse_score', False)
-    frame_rate = config.get('frame_rate', 30)
     test_size = config.get('test_size', [640,640])
+    frame_rate = img_info['fps']
 
     tracker = BYTETracker(
         track_thresh=track_thresh,
