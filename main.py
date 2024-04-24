@@ -3,13 +3,12 @@ from src.object_tracking.bytetrack.byte_tracker import BYTETracker
 import torch
 import json
 from src.object_detection.yolo.utils.main_utils import load_video_to_list, get_img_info
-
+import numpy as np
 
 def run(video_path: str):
     
     img_info = get_img_info(video_path)
     frames = load_video_to_list(video_path)
-    
     # load object detection model
     od_model = ObjectDetection(model_name='yolo', cfg_path='runs/detect/train/weights/best.pt')
 
@@ -25,9 +24,8 @@ def run(video_path: str):
     track_buffer = config.get('track_buffer', 30)
     match_thresh = config.get('match_thresh', 0.8)
     fuse_score = config.get('fuse_score', False)
-    test_size = config.get('test_size', [640,640])
+    #test_size = config.get('test_size', [640,360])
     frame_rate = img_info['fps']
-
     tracker = BYTETracker(
         track_thresh=track_thresh,
         track_buffer=track_buffer,
@@ -39,20 +37,8 @@ def run(video_path: str):
     
     for frame_count, frame in enumerate(frames, 1):
         output = od_model.infer(frame, frame_count)
-
         if output is not None:
-            # Lấy ra tọa độ x và y từ tensor
-            x = output[:, 1]
-            y = output[:, 2]
-
-            # Tính toán w và h
-            w = output[:, 3] - x
-            h = output[:, 4] - y
-
-            # Tạo tensor mới chứa x, y, w, h
-            output = torch.stack((x, y, w, h, output[:, 5]), dim=1)
-            
-            online_targets = tracker.update(output, [img_info['height'], img_info['width']], test_size)
+            online_targets = tracker.update(np.array(output), [img_info["height"],img_info["width"]], [img_info["height"],img_info["width"]])
             online_tlwhs = []
             online_ids = []
             online_scores = []
@@ -78,7 +64,6 @@ def run(video_path: str):
                     ])
 
     return results
-
 
 results = run('/Users/kieusontung/Downloads/Untitled video - Made with Clipchamp.mp4')
 print(results)

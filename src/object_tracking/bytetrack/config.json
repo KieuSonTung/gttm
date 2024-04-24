@@ -1,5 +1,5 @@
 {
-    "aspect_ratio_thresh": 0.6,
+    "aspect_ratio_thresh": 10,
     "min_box_area": 10,
     "track_thresh": 0.5,
     "track_buffer": 30,
