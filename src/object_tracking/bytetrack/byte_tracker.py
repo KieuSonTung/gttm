@@ -1,7 +1,7 @@
 import numpy as np
-from bytetrack.kalman_filter import KalmanFilter
-from bytetrack import matching
-from bytetrack.base_track import BaseTrack, TrackState
+from src.object_tracking.bytetrack.kalman_filter import KalmanFilter
+from src.object_tracking.bytetrack import matching
+from src.object_tracking.bytetrack.base_track import BaseTrack, TrackState
 
 class STrack(BaseTrack):
     shared_kalman = KalmanFilter()
