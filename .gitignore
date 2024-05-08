@@ -197,3 +197,4 @@ yolov8n.pt
 */wandb
 wandb
 .vscode
+runs/

@@ -7,8 +7,8 @@ task: detect # (str) YOLO task, i.e. detect, segment, classify, pose
 # Train settings -------------------------------------------------------------------------------------------------------
 model: "yolov8n.pt" # (str, optional) path to model file, i.e. yolov8n.pt, yolov8n.yaml
 # data: "/home/minhnh/project_drive/CV/GTTMData/external/traffic_camera/data.yaml"# (str, optional) path to data file, i.e. coco128.yaml
-data: "/Users/kieusontung/Downloads/archive/data.yaml"
-epochs: 4 # (int) number of epochs to train for
+data: "/Users/kieusontung/Library/CloudStorage/OneDrive-Personal/Work/Viettel/GiaoThongThongMinh/sample_data/traffic_camera/data.yaml"
+epochs: 6 # (int) number of epochs to train for
 time: # (float, optional) number of hours to train for, overrides epochs if supplied
 patience: 100 # (int) epochs to wait for no observable improvement for early stopping of training
 batch: 16 # (int) number of images per batch (-1 for AutoBatch)
