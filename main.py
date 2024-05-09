@@ -65,5 +65,5 @@ def run(video_path: str):
 
     return results
 
-results = run('/Users/kieusontung/Downloads/Untitled video - Made with Clipchamp.mp4')
+results = run('/content/Untitled video - Made with Clipchamp.mp4')
 print(results)
