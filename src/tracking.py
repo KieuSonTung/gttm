@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../')
 from src.object_detection.model import ObjectDetection
 from src.object_tracking.bytetrack.byte_tracker import BYTETracker
 import torch
@@ -65,5 +67,5 @@ def run(video_path: str):
 
     return results
 
-results = run('/Users/kieusontung/Downloads/Untitled video - Made with Clipchamp.mp4')
-print(results)
+# results = run('/Users/kieusontung/Downloads/Untitled video - Made with Clipchamp.mp4')
+# print(results)
